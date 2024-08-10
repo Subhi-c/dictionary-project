@@ -6,10 +6,17 @@
 }
 
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 90vw;
+  height: 90vh;
 }
 .hidden-audio {
   display: none; /* Hide the default controls */
@@ -33,4 +40,35 @@
 
 .play-button:hover {
   background-color: #45a049;
+}
+.syno {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.syno p {
+  margin: 5px;
+  border: 2px solid #646cff;
+  padding: 3px;
+  border-radius: 5px;
+}
+.result {
+  width: 400px;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 500px) {
+  .result {
+    width: 100% !important;
+    margin: 10px;
+  }
+  .d-flex {
+    margin: 10px 0px 10px 10px !important;
+  }
 }
