@@ -9,7 +9,9 @@
   width: 100%;
   height: 100%;
 }
-
+h1 {
+  margin: 0;
+}
 .d-flex {
   display: flex;
   align-items: center;
@@ -29,8 +31,8 @@
 }
 
 .play-button {
-  padding: 10px 20px;
-  background-color: #4caf50;
+  padding: 0px 20px;
+  background-color: #646cff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -38,9 +40,6 @@
   font-size: 16px;
 }
 
-.play-button:hover {
-  background-color: #45a049;
-}
 .syno {
   display: flex;
   align-items: flex-start;
@@ -62,7 +61,29 @@ header {
   align-items: center;
   justify-content: center;
 }
-
+input {
+  border: 0;
+  border-bottom: 2px solid #646cff;
+  color: #646cff;
+  font-weight: 800;
+  font-size: 18px;
+}
+input:focus {
+  outline: none;
+}
+.clr {
+  color: #646cff;
+  text-decoration: underline;
+}
+.strong {
+  font-weight: 600;
+}
+.card {
+  border: 2px solid #646cff;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+}
 @media (max-width: 500px) {
   .result {
     width: 100% !important;

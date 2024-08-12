@@ -9,6 +9,7 @@ function Resultcomponent({ Text }) {
   const [phonetic, setphonetic] = useState("");
   const [res, setres] = useState(false);
   const [err, seterr] = useState("");
+  const [meanings, setMeanings] = useState([]);
   useEffect(() => {
     fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + Text)
       .then((res) => res.json())
@@ -20,15 +21,18 @@ function Resultcomponent({ Text }) {
           setres(true);
           // Extract data safely
           const phoneticData = data[0].phonetics[0] || {};
-          const meaningData = data[0].meanings[0] || {};
+          const meaningsData = data[0].meanings || [];
 
           setaudiosrc(phoneticData.audio || "");
-          setpartsOfSpeech(meaningData.partOfSpeech || "");
+          setpartsOfSpeech(meaningsData.partOfSpeech || "");
           setdeftn(
-            meaningData.definitions ? meaningData.definitions[0].definition : ""
+            meaningsData.definitions
+              ? meaningsData.definitions[0].definition
+              : ""
           );
-          setsynonyms(meaningData.synonyms || []);
+          setsynonyms(meaningsData.synonyms || []);
           setphonetic(data[0].phonetic || "");
+          setMeanings(meaningsData);
         }
       })
       .catch((error) => console.error("Error fetching data:", error));
@@ -43,8 +47,17 @@ function Resultcomponent({ Text }) {
           <h1>{Text}</h1>
           <small>{phonetic}</small>
           <div>
-            <p>{partsOfSpeech}</p>
-            <p>Definition: {deftn}</p>
+            {meanings.map((meaning, index) => (
+              <div key={index} className="card">
+                <h3 className="clr">{meaning.partOfSpeech}</h3>
+                {meaning.definitions.map((definition, defIndex) => (
+                  <div key={defIndex}>
+                    <p>Definition: {definition.definition}</p>
+                    {definition.example && <p>Example: {definition.example}</p>}
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
           <div>
             {synonyms.length > 0 && (
@@ -64,6 +77,9 @@ function Resultcomponent({ Text }) {
           <p>{err}</p>
         </div>
       )}
+      <p>
+        Developed by <a href="https://github.com/Subhi-c">Subhi.C</a>{" "}
+      </p>
     </>
   );
 }
