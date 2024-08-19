@@ -10,6 +10,7 @@ function Resultcomponent({ Text }) {
   const [res, setres] = useState(false);
   const [err, seterr] = useState("");
   const [meanings, setMeanings] = useState([]);
+  const [srcurl, setsrcurl] = useState("");
   useEffect(() => {
     fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + Text)
       .then((res) => res.json())
@@ -33,6 +34,7 @@ function Resultcomponent({ Text }) {
           setsynonyms(meaningsData.synonyms || []);
           setphonetic(data[0].phonetic || "");
           setMeanings(meaningsData);
+          setsrcurl(data[0].sourceUrls);
         }
       })
       .catch((error) => console.error("Error fetching data:", error));
@@ -44,18 +46,24 @@ function Resultcomponent({ Text }) {
       {res ? (
         <div className="result">
           {audiosrc && <Audiocomponent audiosrc={audiosrc} />}
-          <h1>{Text}</h1>
-          <small>{phonetic}</small>
+          <h1 className="f-4rem">{Text}</h1>
+          <small className="f-24px clr">{phonetic}</small>
           <div>
             {meanings.map((meaning, index) => (
-              <div key={index} className="card">
-                <h3 className="clr">{meaning.partOfSpeech}</h3>
-                {meaning.definitions.map((definition, defIndex) => (
-                  <div key={defIndex}>
-                    <p>Definition: {definition.definition}</p>
-                    {definition.example && <p>Example: {definition.example}</p>}
-                  </div>
-                ))}
+              <div key={index}>
+                <h3 className="br-btm f-24px">{meaning.partOfSpeech}</h3>
+                {/* <div className="line"></div> */}
+                <h2 className="f-20px">Meaning</h2>
+                <ul>
+                  {meaning.definitions.map((definition, defIndex) => (
+                    <li key={defIndex}>
+                      <p className="f-18px"> {definition.definition}</p>
+                      {definition.example && (
+                        <p className="grey f-18px">{definition.example}</p>
+                      )}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
@@ -71,15 +79,25 @@ function Resultcomponent({ Text }) {
               </>
             )}
           </div>
+          <div className="src">
+            <p className="f-16px mt-10">Source</p>
+            <a href={srcurl} className="grey mt-20" target="_blank">
+              {" "}
+              {srcurl}
+            </a>
+          </div>
+          <p className="mt-30">
+            Developed by <a href="https://github.com/Subhi-c">Subhi.C</a>{" "}
+          </p>
         </div>
       ) : (
         <div>
           <p>{err}</p>
+          <p>
+            Developed by <a href="https://github.com/Subhi-c">Subhi.C</a>{" "}
+          </p>
         </div>
       )}
-      <p>
-        Developed by <a href="https://github.com/Subhi-c">Subhi.C</a>{" "}
-      </p>
     </>
   );
 }

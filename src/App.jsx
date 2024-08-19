@@ -5,8 +5,10 @@ import Titlecomponent from "./components/Titlecomponent";
 function App() {
   const [searchText, setsearchText] = useState("");
   const [text, settext] = useState(false);
-  function setTrue() {
-    settext(true);
+  function setTrue(event) {
+    if (event.key === "Enter") {
+      settext(true);
+    }
   }
   function handleChange(e) {
     setsearchText(e.target.value);
@@ -21,9 +23,10 @@ function App() {
             value={searchText}
             type="text"
             onChange={handleChange}
-            placeholder="Type word here"
+            placeholder="Search for any word..."
+            onKeyDown={setTrue}
           />
-          <button onClick={setTrue}>Search</button>
+          {/* <button onClick={setTrue}>Search</button> */}
         </div>
         {text && <Resultcomponent Text={searchText} />}
       </div>
