@@ -22,7 +22,7 @@ h1 {
   flex-direction: column;
   margin-top: 40px;
   width: 90vw;
-  height: 90vh;
+  min-height: 100%;
 }
 .hidden-audio {
   display: none; /* Hide the default controls */
