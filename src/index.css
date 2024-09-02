@@ -22,7 +22,7 @@ body {
   min-height: 100%;
 }
 body {
-  height: 100vh;
+  height: auto;
 }
 body.light-theme {
   background-color: white;
